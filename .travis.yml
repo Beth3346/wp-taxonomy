@@ -1,0 +1,30 @@
+language: php
+sudo: false
+dist: trusty
+php:
+- 7.1
+- 7.0
+- 5.6
+- nightly
+env:
+- TRAVIS_NODE_VERSION="6"
+- TRAVIS_NODE_VERSION="7"
+matrix:
+  fast_finish: true
+  allow_failures:
+  - php: nightly
+cache:
+  apt: true
+  directories:
+  - $HOME/.composer/cache
+  - vendor
+before_install:
+- composer self-update
+  | bash
+install:
+- composer install -o --prefer-dist --no-interaction
+script:
+- composer test
+notifications:
+  slack:
+    secure: wSJR0lu+UtSEzh/Mar/wg2f4bs7KUgQGHbNz7VxltYA6KN3NidnZMio9NWLqlvbHJAczw7jjZDZxlKrEM+onlsRSoZ2aNNYxZGP+k96ehUQIicRZyVM8xmH2c/OVca1YHkhnPVUatB+Xr2AGJZM54OuMG9fRwaimSOF9hSfRF5NxxDOYMcESdj/6OYYyUHJeSVGxuNmhnqoe99WXRNprZjQ7qqP5mg88J7KxsX6IGF1tmfJv6+9WXyX8GG+3ec8L+uLR53zMpv9uHKlHflQKjHelbRGCgVeo8uVINkBwMFoH36zMoIBlbTEafI8hSzXQp6UPYoUvXt9N4o0BcNtTq7fW3BMPIh2mHxn6L924HaGOkI1gL+sELnyysOqZXB26DFDumCl3be39Hge/f/DFRJnlqhU439OeLa9xAto1HBPl74VqYKERbeg/4k0HWJ3O7bWpvSWpVOXRcUe27BoI+e3qeBLq+n4WayNAzaN1oaJ+eoSLQMS6RgM751FKV93dTSDQvMXn0SrvtT21/Uzh/N5+K5S5/+KNjv2FWZxMbQM3FdZfB8+XMcYLOHfB6wris3PJwSaJ4QeAwRzoSiftnk29f99GVv/k4uQrRbgxCNehZomWDB1pyfsd+JcklYEp+4aL+CWDdmIF14Oz68tPwdvUM+Lt2qXQQeXt9vrQmWI=
